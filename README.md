@@ -1,5 +1,8 @@
 # File Sync
 
+![Frontend Build & Test Status](https://github.com/eomielan/file-sync/actions/workflows/frontend.yml/badge.svg)
+![Backend Build & Test Status](https://github.com/eomielan/file-sync/actions/workflows/backend.yml/badge.svg)
+
 File Sync is a full-stack application that enables file transfer between two endpoints using a custom **TCP-like protocol over UDP**. The application consists of a React frontend and a Spring Boot backend, with C binaries for handling low-level TCP-like file transfer over UDP.
 
 ### Related Repository
@@ -28,14 +31,14 @@ file-sync/
 │   │   ├── sender.c                   # Sender implementation
 │   │   ├── receiver.c                 # Receiver implementation
 │   │   └── Makefile                   # Compiles sender and receiver
-│   └── build.gradle                   # Gradle dependencies and build configuration for Spring Boot
+│   └── build.gradle                   # Gradle dependencies and build configuration
 ├── frontend/                          # React frontend
 │   ├── public/
 │   ├── src/
 │   │   ├── App.js                     # Main React component
 │   │   └── components/                # UI components for specific pages and functionalities
-│   │       ├── SenderPage.js          # Component for the sender page where users can send files
-│   │       └── ReceiverPage.js        # Component for the receiver page where users can receive files
+│   │       ├── SenderPage.js          # Component for the sender page
+│   │       └── ReceiverPage.js        # Component for the receiver page
 │   └── package.json                   # React project dependencies and scripts
 ├── .gitignore                         # Root .gitignore
 └── README.md                          # Project overview and setup instructions
