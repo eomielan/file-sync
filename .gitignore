@@ -1,0 +1,12 @@
+# Universal ignores
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE-specific
+.vscode/
+.idea/
+
+# General build artifacts
+dist/
+build/
