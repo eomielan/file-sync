@@ -25,7 +25,7 @@ public class FileControllerTest {
 
     @Test
     void testUploadFile_Success() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "test.txt", MediaType.TEXT_PLAIN_VALUE, "File content".getBytes());
+        MockMultipartFile file = new MockMultipartFile("file", "test.txt", MediaType.TEXT_PLAIN_VALUE, "Mock file content".getBytes());
 
         Mockito.when(fileTransferService.transferFile(any(), anyString(), anyInt(), anyLong()))
                 .thenReturn("File sent successfully");
@@ -42,12 +42,12 @@ public class FileControllerTest {
     @Test
     void testDownloadFile_Success() throws Exception {
         Mockito.when(fileTransferService.receiveFile(anyString(), anyInt(), anyString()))
-                .thenReturn("/path/to/received_file.txt");
+                .thenReturn("/mock/path/received_file.txt");
 
         mockMvc.perform(get("/file-transfer/download")
                         .param("filename", "received_file.txt")
                         .param("port", "12345")
-                        .header("fileStorageLocation", "/downloads"))
+                        .header("fileStorageLocation", "/mock/path"))
                 .andExpect(status().isOk())
                 .andExpect(header().string("Content-Disposition", "attachment; filename=\"received_file.txt\""));
     }
