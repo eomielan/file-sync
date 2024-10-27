@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/file-transfer")
 public class FileController {
 
     @Autowired
