@@ -8,7 +8,7 @@ file-sync/
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/
-│   │   │   │   └── com/example/filetransfer/
+│   │   │   │   └── com/networking/filetransfer/
 │   │   │   │       ├── FileTransferApplication.java   # Main Spring Boot application class
 │   │   │   │       ├── controller/
 │   │   │   │       │   └── FileController.java        # REST controller
