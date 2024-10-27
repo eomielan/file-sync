@@ -143,3 +143,47 @@ To run the backend locally, follow these steps:
 5. **Test the Endpoints**
 
    You can now test the `/file-transfer/send` and `/file-transfer/receive` endpoints using `curl` or Postman. Ensure that the receiver is set up and listening on the specified port when testing the `send` endpoint.
+
+---
+
+## How to Run Tests
+
+The backend includes unit and integration tests for verifying file transfer functionality, error handling, and endpoint responses. These tests are implemented using **JUnit 5** and **Mockito**.
+
+### Running Tests with Gradle
+
+1. **Navigate to the Backend Directory**
+
+   Make sure you’re in the `backend` directory:
+
+   ```bash
+   cd file-sync/backend
+   ```
+
+2. **Run All Tests**
+
+   To run all tests, use the following Gradle command:
+
+   ```bash
+   ./gradlew test
+   ```
+
+   Alternatively, if Gradle is installed, you can use:
+
+   ```bash
+   gradle test
+   ```
+
+3. **View Test Results**
+
+   Test results will be available in the `build/reports/tests/test/index.html` file. Open this file in a browser to view a detailed test report.
+
+### Running Tests for a Specific Class
+
+If you want to run tests for a specific class, use the following command:
+
+```bash
+./gradlew test --tests "com.networking.filetransfer.controller.FileControllerTest"
+```
+
+Replace `FileControllerTest` with the specific test class name.
