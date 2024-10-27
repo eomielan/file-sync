@@ -41,6 +41,20 @@ file-sync/
 └── README.md                          # Project overview and setup instructions
 ```
 
+## Sender and Receiver Pages
+
+### Sender Page
+
+This page allows users to select a file and configure settings for sending it over the network.
+
+![Sender Page](https://github.com/eomielan/file-sync/images/sender.png)
+
+### Receiver Page
+
+This page allows users to specify the port and file location for receiving files over the network.
+
+![Receiver Page](https://github.com/eomielan/file-sync/images/receiver.png)
+
 ## Getting Started
 
 This project requires **Node.js** for the frontend, **Java 17** with **Gradle** for the backend, and **GCC** to compile the C binaries for TCP-like functionality over UDP.
