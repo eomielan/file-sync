@@ -1,4 +1,4 @@
-# File Transfer Frontend
+# File Sync Frontend
 
 This project provides a React frontend interface for a file transfer application using a custom TCP-over-UDP protocol. The application allows users to send and receive files through a backend API.
 

@@ -58,7 +58,7 @@ This project requires **Node.js** for the frontend, **Java 17** with **Gradle** 
    - Go to the `tcpOverUdp` directory:
 
      ```bash
-     cd src/tcpOverUdp
+     cd tcpOverUdp
      ```
 
    - Run `make` to compile the `sender` and `receiver` binaries:
@@ -78,7 +78,7 @@ This project requires **Node.js** for the frontend, **Java 17** with **Gradle** 
    - Go back to the `backend` root directory:
 
      ```bash
-     cd ../..
+     cd ..
      ```
 
    - Run the backend:
