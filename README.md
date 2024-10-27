@@ -47,13 +47,13 @@ file-sync/
 
 This page allows users to select a file and configure settings for sending it over the network.
 
-![Sender Page](https://github.com/eomielan/file-sync/images/sender.png)
+![Sender Page](https://github.com/eomielan/file-sync/blob/main/images/sender.png)
 
 ### Receiver Page
 
 This page allows users to specify the port and file location for receiving files over the network.
 
-![Receiver Page](https://github.com/eomielan/file-sync/images/receiver.png)
+![Receiver Page](https://github.com/eomielan/file-sync/blob/main/images/receiver.png)
 
 ## Getting Started
 
