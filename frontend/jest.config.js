@@ -1,5 +1,11 @@
-export const jest = {
-  transform: {
-    "^.+\\.jsx?$": "babel-jest",
+const jestConfig = {
+  transform: {},
+  extensionsToTreatAsEsm: [".js"],
+  globals: {
+    "ts-jest": {
+      useESM: true,
+    },
   },
 };
+
+export default jestConfig;
