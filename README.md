@@ -27,7 +27,9 @@ file-sync/
 │   ├── public/
 │   ├── src/
 │   │   ├── App.js                     # Main React component
-│   │   └── components/                # Additional UI components
+│   │   └── components/                # UI components for specific pages and functionalities
+│   │       ├── SenderPage.js          # Component for the sender page where users can send files
+│   │       └── ReceiverPage.js        # Component for the receiver page where users can receive files
 │   └── package.json                   # React project dependencies and scripts
 ├── .gitignore                         # Root .gitignore
 └── README.md                          # Project overview and setup instructions
