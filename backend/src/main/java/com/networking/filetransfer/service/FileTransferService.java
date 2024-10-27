@@ -1,6 +1,6 @@
 package com.networking.filetransfer.service;
 
-import com.example.filetransfer.utils.TransferExecutor;
+import com.networking.filetransfer.utils.TransferExecutor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
