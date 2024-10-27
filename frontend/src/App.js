@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import SenderPage from "./components/SenderPage";
-import ReceiverPage from "./components/ReceiverPage";
+import SenderPage from "./components/SenderPage.js";
+import ReceiverPage from "./components/ReceiverPage.js";
 import styled from "styled-components";
 
 const Container = styled.div`
