@@ -60,7 +60,7 @@ function SenderPage() {
     formData.append("bytesToTransfer", bytesToTransfer);
 
     try {
-      await axios.post("/api/upload", formData);
+      await axios.post("/file-transfer/upload", formData);
       alert("File sent successfully!");
     } catch (error) {
       alert("Error sending file.");
