@@ -43,8 +43,8 @@ file-sync/
 
 ## Sender and Receiver Pages
 
-| ![Sender Page](https://github.com/eomielan/file-sync/blob/main/images/sender.png) | ![Receiver Page](https://github.com/eomielan/file-sync/blob/main/images/receiver.png) |
-| :-------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------: |
+| ![Sender Page](https://github.com/eomielan/file-sync/blob/main/images/sender.png?raw=true) | ![Receiver Page](https://github.com/eomielan/file-sync/blob/main/images/receiver.png?raw=true) |
+| :----------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
 
 ## Getting Started
 
