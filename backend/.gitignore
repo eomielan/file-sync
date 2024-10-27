@@ -1,0 +1,42 @@
+# Maven target directory
+target/
+
+# Gradle-specific files
+.gradle/
+build/
+out/
+
+# Compiled binaries for TCP-over-UDP protocol
+tcpOverUdp/sender
+tcpOverUdp/receiver
+
+# Log files
+*.log
+
+# Temporary files and system files
+*.tmp
+*.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Environment variables file
+.env
+
+# Maven local repository
+.mvn/timing.properties
+
+# Package files
+*.jar
+*.war
+*.ear
