@@ -2,6 +2,7 @@
 
 ![Frontend Build & Test Status](https://github.com/eomielan/file-sync/actions/workflows/frontend.yml/badge.svg)
 ![Backend Build & Test Status](https://github.com/eomielan/file-sync/actions/workflows/backend.yml/badge.svg)
+![TCP over UDP Build & Test Status](https://github.com/eomielan/file-sync/actions/workflows/tcp-over-udp.yml/badge.svg)
 
 File Sync is a full-stack application that enables file transfer between two endpoints using a custom **TCP-like protocol over UDP**. The application consists of a React frontend and a Spring Boot backend, with C binaries for handling low-level TCP-like file transfer over UDP.
 
