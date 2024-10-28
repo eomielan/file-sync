@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 jobs:
-  submodule-ci:
+  initialize-submodule:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +22,11 @@ jobs:
         with:
           submodules: true
 
-      - name: Initialize submodule
+      - name: Initialize submodules
         run: git submodule update --init --recursive
 
-      - name: Call submodule CI workflow
-        uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
-        with:
-          working-directory: 'backend/tcpOverUdp'
+  submodule-ci:
+    uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
+    with:
+      working-directory: 'backend/tcpOverUdp'
   
