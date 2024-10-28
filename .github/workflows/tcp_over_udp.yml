@@ -29,6 +29,7 @@ jobs:
         run: ls -la backend/tcpOverUdp
 
   submodule-ci:
+    needs: initialize-submodule
     uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
     with:
       working-directory: 'backend/tcpOverUdp'
