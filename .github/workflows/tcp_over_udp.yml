@@ -14,7 +14,19 @@ permissions:
 
 jobs:
   submodule-ci:
-    uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
-    with:
-      working-directory: 'backend/tcpOverUdp'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Initialize submodule
+        run: git submodule update --init --recursive
+
+      - name: Call submodule CI workflow
+        uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
+        with:
+          working-directory: 'backend/tcpOverUdp'
   
