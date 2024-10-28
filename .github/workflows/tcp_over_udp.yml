@@ -8,12 +8,8 @@ on:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  initialize-submodule:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,12 +21,18 @@ jobs:
       - name: Initialize submodules
         run: git submodule update --init --recursive
 
-      - name: Verify makefile
-        run: ls -la backend/tcpOverUdp
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-  submodule-ci:
-    needs: initialize-submodule
-    uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
-    with:
-      working-directory: 'backend/tcpOverUdp'
-  
+      - name: Install Pytest
+        run: pip install pytest
+
+      - name: Build project
+        working-directory: 'backend/tcpOverUdp'
+        run: make
+
+      - name: Run tests
+        working-directory: 'backend/tcpOverUdp/src/test'
+        run: pytest
