@@ -1,0 +1,38 @@
+name: TCP over UDP CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Initialize submodule
+        run: git submodule update --init --recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Pytest
+        run: pip install pytest
+
+      - name: Build project
+        working-directory: 'backend/tcpOverUdp'
+        run: make
+
+      - name: Run tests
+        working-directory: 'backend/tcpOverUdp/src/test'
+        run: pytest
