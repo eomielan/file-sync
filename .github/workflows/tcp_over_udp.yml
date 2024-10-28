@@ -25,6 +25,9 @@ jobs:
       - name: Initialize submodules
         run: git submodule update --init --recursive
 
+      - name: Verify makefile
+        run: ls -la backend/tcpOverUdp
+
   submodule-ci:
     uses: eomielan/tcp-over-udp/.github/workflows/ci.yml@main
     with:
