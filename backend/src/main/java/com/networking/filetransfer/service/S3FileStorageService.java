@@ -32,6 +32,14 @@ public class S3FileStorageService {
                 .build();
     }
 
+    /**
+     * Upload a file to an S3 bucket
+     * 
+     * @param bucketName Name of the bucket to upload the file to
+     * @param fileName Name of the file to upload
+     * @param file MultipartFile object containing the file data
+     * @return ETag of the uploaded file
+     */
     public String uploadFile(String bucketName, String fileName, MultipartFile file) {
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -50,6 +58,13 @@ public class S3FileStorageService {
         }
     }
 
+    /**
+     * Download a file from an S3 bucket
+     * 
+     * @param bucketName Name of the bucket to download the file from
+     * @param fileName Name of the file to download
+     * @return ResponseEntity containing the file as an InputStreamResource
+     */
     public ResponseEntity<InputStreamResource> downloadFile(String bucketName, String fileName) {
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()

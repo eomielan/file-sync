@@ -14,6 +14,15 @@ import java.nio.file.Paths;
 @Service
 public class FileTransferService {
 
+    /**
+     * Transfer a file to a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param file MultipartFile object containing the file data
+     * @param receiverHostname Hostname of the receiver
+     * @param receiverPort Port number of the receiver
+     * @param bytesToTransfer Number of bytes to transfer
+     * @return String containing the result of the file transfer
+     */
     public String transferFile(MultipartFile file, String receiverHostname, int receiverPort, long bytesToTransfer)
             throws IOException, InterruptedException {
 
@@ -27,6 +36,14 @@ public class FileTransferService {
         return TransferExecutor.sendFile(tempFile.getAbsolutePath(), receiverHostname, receiverPort, bytesToTransfer);
     }
 
+    /**
+     * Receive a file from a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param filename Name of the file to receive
+     * @param port Port number to listen on
+     * @param fileStorageLocation Directory to store the received file
+     * @return String containing the result of the file transfer
+     */
     public String receiveFile(String filename, int port, String fileStorageLocation) throws IOException, InterruptedException {
         Path storagePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
         if (!Files.exists(storagePath)) {
