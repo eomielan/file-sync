@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import SenderPage from "./components/SenderPage.js";
 import ReceiverPage from "./components/ReceiverPage.js";
+import UploadPage from "./components/UploadPage.js";
+import DownloadPage from "./components/DownloadPage.js";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -36,10 +38,14 @@ function App() {
         <Navbar>
           <StyledLink to="/">Sender</StyledLink>
           <StyledLink to="/receiver">Receiver</StyledLink>
+          <StyledLink to="/upload">Upload to S3</StyledLink>
+          <StyledLink to="/download">Download from S3</StyledLink>
         </Navbar>
         <Routes>
           <Route path="/" element={<SenderPage />} />
           <Route path="/receiver" element={<ReceiverPage />} />
+          <Route path="/upload" element={<UploadPage />} />
+          <Route path="/download" element={<DownloadPage />} />
         </Routes>
       </Container>
     </Router>
