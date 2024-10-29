@@ -49,8 +49,7 @@ const Button = styled.button`
 function ReceiverPage() {
   const [port, setPort] = useState("");
   const [filename, setFilename] = useState("");
-  const [fileStorageLocation, setFileStorageLocation] =
-    useState("/default/downloads"); // default storage path
+  const [fileStorageLocation, setFileStorageLocation] = useState("");
 
   const handleStartReceiver = async () => {
     try {
@@ -62,10 +61,10 @@ function ReceiverPage() {
         headers: {
           fileStorageLocation,
         },
-        responseType: "blob", // Download file as a binary stream
+        responseType: "blob", // Download as binary stream
       });
 
-      // Create a URL for the received file and prompt download
+      // Create a URL for received file and prompt download
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
