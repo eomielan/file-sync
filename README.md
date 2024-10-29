@@ -41,6 +41,7 @@ file-sync/
 │   │       ├── SenderPage.js          # Component for the sender page
 │   │       └── ReceiverPage.js        # Component for the receiver page
 │   └── package.json                   # React project dependencies and scripts
+├── .env                               # Environment variables for AWS credentials
 ├── .gitignore                         # Root .gitignore
 └── README.md                          # Project overview and setup instructions
 ```
@@ -53,6 +54,19 @@ file-sync/
 ## Getting Started
 
 This project requires **Node.js** for the frontend, **Java 17** with **Gradle** for the backend, and **GCC** to compile the C binaries for TCP-like functionality over UDP.
+
+### Environment Setup for AWS
+
+For Amazon S3 file storage, set up a `.env` file in the project root with your AWS credentials and region:
+
+```plaintext
+# .env
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_REGION=your-aws-region
+```
+
+> **Note:** The `.env` file is included in `.gitignore` to keep credentials secure.
 
 ### 1. Set Up the Backend
 
@@ -126,8 +140,9 @@ For detailed frontend setup and usage, see the [frontend README](frontend/README
 
 ## Features
 
-- **File Sending**: Upload and send files to a specified receiver over a custom TCP-like protocol using UDP.
+- **File Sending**: Send files to a specified receiver over a custom TCP-like protocol using UDP.
 - **File Receiving**: Initiate a file transfer from the receiver endpoint, save the file locally, and download it via the frontend.
+- **S3 Integration**: Upload and download files from Amazon S3 for secure storage.
 
 ## Usage
 

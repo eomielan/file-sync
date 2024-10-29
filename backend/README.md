@@ -29,7 +29,7 @@ AWS_REGION=your-aws-region
 
 These environment variables are necessary for the application to authenticate with AWS and interact with your S3 bucket.
 
-> **Note:** Ensure that the `.env` file is included in `.gitignore` to keep your credentials secure.
+> **Note:** The `.env` file is included in `.gitignore` to keep credentials secure.
 
 ## Endpoints
 
