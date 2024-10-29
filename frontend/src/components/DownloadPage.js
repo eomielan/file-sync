@@ -19,6 +19,7 @@ const Title = styled.h2`
 
 const Input = styled.input`
   width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -50,18 +51,10 @@ function DownloadPage() {
   const [fileName, setFileName] = useState("");
 
   const handleDownload = async () => {
-    if (!bucketName || !fileName) {
-      alert("Please fill in all fields");
-      return;
-    }
-
     try {
       const response = await axios.get("/file-transfer/download", {
-        params: {
-          bucketName,
-          fileName,
-        },
-        responseType: "blob",
+        params: { bucketName, fileName },
+        responseType: "blob", // Download as binary stream
       });
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -71,9 +64,10 @@ function DownloadPage() {
       document.body.appendChild(link);
       link.click();
       link.remove();
+
+      alert(`File ${fileName} downloaded successfully from S3.`);
     } catch (error) {
-      console.error("Error downloading file:", error);
-      alert("Failed to download the file.");
+      alert("Error downloading file from S3.");
     }
   };
 

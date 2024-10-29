@@ -19,6 +19,7 @@ const Title = styled.h2`
 
 const Input = styled.input`
   width: 100%;
+  box-sizing: border-box;
   padding: 12px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -50,34 +51,28 @@ function UploadPage() {
   const [bucketName, setBucketName] = useState("");
   const [fileName, setFileName] = useState("");
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
   const handleUpload = async () => {
-    if (!file || !bucketName || !fileName) {
-      alert("Please fill in all fields");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("bucketName", bucketName);
     formData.append("fileName", fileName);
 
     try {
-      const response = await axios.post("/file-transfer/upload", formData);
-      alert(response.data);
+      await axios.post("/file-transfer/upload", formData);
+      alert("File uploaded to S3 successfully!");
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("Failed to upload the file.");
+      alert("Error uploading file to S3.");
     }
   };
 
   return (
     <Card>
       <Title>Upload to S3</Title>
-      <Input type="file" onChange={handleFileChange} />
+      <input
+        type="file"
+        onChange={(e) => setFile(e.target.files[0])}
+        required
+      />
       <Input
         type="text"
         placeholder="Bucket Name"
