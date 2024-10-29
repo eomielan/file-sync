@@ -180,7 +180,7 @@ To run the backend locally, follow these steps:
 
 3. **Configure the .env File**
 
-   Create a `.env` file in the project root with your AWS credentials and region:
+   Create a `.env` file in the backend root with your AWS credentials and region:
 
    ```plaintext
    AWS_ACCESS_KEY_ID=your-access-key-id

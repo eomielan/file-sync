@@ -15,6 +15,7 @@ This project relies on the **TCP-like protocol over UDP** provided by the [tcp-o
 ```plaintext
 file-sync/
 ├── backend/                           # Spring Boot backend
+│   ├── .env                           # Environment variables for AWS credentials
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/
@@ -23,11 +24,12 @@ file-sync/
 │   │   │   │       ├── controller/
 │   │   │   │       │   └── FileController.java        # REST controller
 │   │   │   │       ├── service/
-│   │   │   │       │   └── FileTransferService.java   # Service for transfer logic
+│   │   │   │       │   ├── FileTransferService.java   # Service for transfer logic
+│   │   │   │       │   └── S3FileStorageService.java  # Service for S3 storage interactions
 │   │   │   │       └── utils/
 │   │   │   │           └── TransferExecutor.java      # Executes sender and receiver binaries
-│   │   │   └── resources/
-│   │   │       └── application.properties             # Spring Boot configurations
+│   │   └── resources/
+│   │       └── application.properties                 # Spring Boot configurations
 │   ├── tcpOverUdp/                    # Directory for C binaries
 │   │   ├── sender.c                   # Sender implementation
 │   │   ├── receiver.c                 # Receiver implementation
@@ -41,7 +43,6 @@ file-sync/
 │   │       ├── SenderPage.js          # Component for the sender page
 │   │       └── ReceiverPage.js        # Component for the receiver page
 │   └── package.json                   # React project dependencies and scripts
-├── .env                               # Environment variables for AWS credentials
 ├── .gitignore                         # Root .gitignore
 └── README.md                          # Project overview and setup instructions
 ```
@@ -57,10 +58,10 @@ This project requires **Node.js** for the frontend, **Java 17** with **Gradle** 
 
 ### Environment Setup for AWS
 
-For Amazon S3 file storage, set up a `.env` file in the project root with your AWS credentials and region:
+For Amazon S3 file storage, set up a `.env` file in the `backend` directory with your AWS credentials and region:
 
 ```plaintext
-# .env
+# backend/.env
 AWS_ACCESS_KEY_ID=your-access-key-id
 AWS_SECRET_ACCESS_KEY=your-secret-access-key
 AWS_REGION=your-aws-region
@@ -142,7 +143,7 @@ For detailed frontend setup and usage, see the [frontend README](frontend/README
 
 - **File Sending**: Send files to a specified receiver over a custom TCP-like protocol using UDP.
 - **File Receiving**: Initiate a file transfer from the receiver endpoint, save the file locally, and download it via the frontend.
-- **S3 Integration**: Upload and download files from Amazon S3 for secure storage.
+- **S3 Integration**: Upload and download files from Amazon S3 for secure storage using `S3FileStorageService`.
 
 ## Usage
 
