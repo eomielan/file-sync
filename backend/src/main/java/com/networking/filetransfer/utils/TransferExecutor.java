@@ -7,6 +7,15 @@ import java.io.InputStreamReader;
 
 public class TransferExecutor {
 
+    /**
+     * Send a file to a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param filePath Path to the file to send
+     * @param receiverHostname Hostname of the receiver
+     * @param receiverPort Port number of the receiver
+     * @param bytesToTransfer Number of bytes to transfer
+     * @return String containing the result of the file transfer
+     */
     public static String sendFile(String filePath, String receiverHostname, int receiverPort, long bytesToTransfer)
             throws InterruptedException {
         try {
@@ -35,6 +44,13 @@ public class TransferExecutor {
         }
     }
 
+    /**
+     * Receive a file from a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param filePath Path to store the received file
+     * @param port Port number to listen on
+     * @return String containing the result of the file transfer
+     */
     public static String receiveFile(String filePath, int port) throws InterruptedException {
         try {
             // Ensure the file directory exists

@@ -25,6 +25,15 @@ public class FileController {
     @Autowired
     private S3FileStorageService s3FileStorageService;
 
+    /**
+     * Send a file to a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param file MultipartFile object containing the file data
+     * @param receiverHostname Hostname of the receiver
+     * @param receiverPort Port number of the receiver
+     * @param bytesToTransfer Number of bytes to transfer
+     * @return ResponseEntity containing the result of the file transfer
+     */
     @PostMapping("/send")
     public ResponseEntity<String> sendFile(
             @RequestParam("file") MultipartFile file,
@@ -40,6 +49,14 @@ public class FileController {
         }
     }
 
+    /**
+     * Upload a file to an S3 bucket
+     * 
+     * @param file MultipartFile object containing the file data
+     * @param bucketName Name of the bucket to upload the file to
+     * @param fileName Name of the file to upload
+     * @return ResponseEntity containing the result of the file upload
+     */
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(
             @RequestParam("file") MultipartFile file,
@@ -54,6 +71,14 @@ public class FileController {
         }
     }
 
+    /**
+     * Receive a file from a remote host using a custom TCP-over-UDP protocol
+     * 
+     * @param filename Name of the file to receive
+     * @param port Port number to listen on
+     * @param fileStorageLocation Directory to store the received file
+     * @return ResponseEntity containing the received file as a Resource
+     */
     @GetMapping("/receive")
     public ResponseEntity<Resource> receiveFile(
             @RequestParam("filename") String filename,
@@ -77,6 +102,13 @@ public class FileController {
         }
     }
 
+    /**
+     * Download a file from an S3 bucket
+     * 
+     * @param bucketName Name of the bucket to download the file from
+     * @param fileName Name of the file to download
+     * @return ResponseEntity containing the file as an InputStreamResource
+     */
     @GetMapping("/download")
     public ResponseEntity<InputStreamResource> downloadFile(
             @RequestParam("bucketName") String bucketName,
