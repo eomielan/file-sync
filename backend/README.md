@@ -1,6 +1,6 @@
 # File Sync Backend
 
-This project provides backend APIs for transferring files using a custom TCP-over-UDP protocol. It includes endpoints for sending and receiving files, allowing you to specify the file storage location dynamically in each request.
+This project provides backend APIs for transferring files using a custom TCP-over-UDP protocol and S3 for file storage. It includes endpoints for sending, receiving, uploading, and downloading files.
 
 ## Related Repository
 
@@ -16,15 +16,86 @@ Example:
 http://localhost:8080/file-transfer
 ```
 
+## Environment Configuration
+
+To use Amazon S3 for file storage, set up a `.env` file in the root of your project directory with the following environment variables:
+
+```plaintext
+# .env
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+AWS_REGION=your-aws-region
+```
+
+These environment variables are necessary for the application to authenticate with AWS and interact with your S3 bucket.
+
+> **Note:** Ensure that the `.env` file is included in `.gitignore` to keep your credentials secure.
+
 ## Endpoints
 
-### 1. Upload and Send File
+### 1. Upload File to S3
 
-Upload a file and send it to a specified receiver.
+Uploads a file to an Amazon S3 bucket for storage.
+
+- **URL**: `/file-transfer/upload`
+- **Method**: `POST`
+- **Description**: Uploads a file to a specified S3 bucket.
+
+#### Request Parameters
+
+- **file**: (multipart/form-data) The file to be uploaded.
+- **bucketName**: (string) The name of the S3 bucket where the file will be stored.
+- **fileName**: (string) The name to save the file as in S3.
+
+#### Example `curl` Request
+
+```bash
+curl -X POST -F "file=@/path/to/your/file.txt" \
+     -F "bucketName=your-s3-bucket-name" \
+     -F "fileName=uploaded-file.txt" \
+     http://localhost:8080/file-transfer/upload
+```
+
+#### Response
+
+- **Success**: Returns a message with the S3 ETag confirming the file was uploaded successfully.
+- **Error**: Returns a `500 Internal Server Error` if the upload fails.
+
+---
+
+### 2. Download File from S3
+
+Downloads a file from S3 and serves it as a downloadable resource.
+
+- **URL**: `/file-transfer/download`
+- **Method**: `GET`
+- **Description**: Fetches a file from S3 based on the provided bucket and file name.
+
+#### Request Parameters
+
+- **bucketName**: (query parameter) The name of the S3 bucket where the file is stored.
+- **fileName**: (query parameter) The name of the file in S3.
+
+#### Example `curl` Request
+
+```bash
+curl -X GET "http://localhost:8080/file-transfer/download?bucketName=your-s3-bucket-name&fileName=your-file-name" -o downloaded-file.txt
+```
+
+#### Response
+
+- **Success**: Returns the file as a downloadable resource.
+- **Error**: Returns a `404 Not Found` if the file does not exist or a `500 Internal Server Error` if the download fails.
+
+---
+
+### 3. Send File via TCP-over-UDP
+
+Uploads and sends a file to a specified receiver over a custom TCP-over-UDP protocol.
 
 - **URL**: `/file-transfer/send`
 - **Method**: `POST`
-- **Description**: Uploads a file to the backend and sends it to the specified receiver over a custom TCP-over-UDP protocol.
+- **Description**: Uploads a file and sends it to a designated receiver.
 
 #### Request Parameters
 
@@ -50,13 +121,13 @@ curl -X POST -F "file=@/path/to/your/file.txt" \
 
 ---
 
-### 2. Receive and Download File
+### 4. Receive File via TCP-over-UDP
 
-Trigger the receiver to download a file over TCP-over-UDP, then serve it as a downloadable resource.
+Initiates the receiver process to download a file over TCP-over-UDP, then serves it as a downloadable resource.
 
 - **URL**: `/file-transfer/receive`
 - **Method**: `GET`
-- **Description**: Initiates the file reception via the custom TCP-over-UDP protocol and provides the file for download.
+- **Description**: Starts the receiver to download the file over the TCP-over-UDP protocol.
 
 #### Request Parameters
 
@@ -95,8 +166,6 @@ To run the backend locally, follow these steps:
 
 1. **Clone the Repository**
 
-   Clone the repository to your local machine:
-
    ```bash
    git clone https://github.com/eomielan/file-sync.git
    cd file-sync/backend
@@ -104,57 +173,37 @@ To run the backend locally, follow these steps:
 
 2. **Compile the TCP-over-UDP Binaries**
 
-   The backend requires the `sender` and `receiver` binaries from the [tcp-over-udp repository](https://github.com/eomielan/tcp-over-udp). Compile these binaries by running `make` in the `src/tcpOverUdp` directory:
-
    ```bash
    cd tcpOverUdp
    make
    ```
 
-   - This will generate the `sender` and `receiver` executables required for file transfer.
-   - Ensure both binaries are executable (if not, use `chmod +x sender receiver`).
+3. **Configure the .env File**
 
-3. **Configure Application Properties**
+   Create a `.env` file in the project root with your AWS credentials and region:
 
-   Open `src/main/resources/application.properties` to configure any necessary properties, such as server port (optional):
-
-   ```properties
-   # Default server port (optional)
-   server.port=8080
+   ```plaintext
+   AWS_ACCESS_KEY_ID=your-access-key-id
+   AWS_SECRET_ACCESS_KEY=your-secret-access-key
+   AWS_REGION=your-aws-region
    ```
 
 4. **Run the Backend**
 
-   Start the Spring Boot backend using the Gradle Wrapper:
-
    ```bash
-   cd ..  # Navigate back to the project root
+   cd ..
    ./gradlew bootRun
    ```
 
-   Alternatively, if you have Gradle installed, you can also use:
-
-   ```bash
-   gradle bootRun
-   ```
-
-   This command will start the backend server on `http://localhost:8080` (or on the port specified in `application.properties`).
-
 5. **Test the Endpoints**
 
-   You can now test the `/file-transfer/send` and `/file-transfer/receive` endpoints using `curl` or Postman. Ensure that the receiver is set up and listening on the specified port when testing the `send` endpoint.
+   You can now test the `/file-transfer/send`, `/file-transfer/receive`, `/file-transfer/upload`, and `/file-transfer/download` endpoints using `curl` or Postman.
 
 ---
 
 ## How to Run Tests
 
-The backend includes unit and integration tests for verifying file transfer functionality, error handling, and endpoint responses. These tests are implemented using **JUnit 5** and **Mockito**.
-
-### Running Tests with Gradle
-
 1. **Navigate to the Backend Directory**
-
-   Make sure you’re in the `backend` directory:
 
    ```bash
    cd file-sync/backend
@@ -162,28 +211,16 @@ The backend includes unit and integration tests for verifying file transfer func
 
 2. **Run All Tests**
 
-   To run all tests, use the following Gradle command:
-
    ```bash
    ./gradlew test
    ```
 
-   Alternatively, if Gradle is installed, you can use:
-
-   ```bash
-   gradle test
-   ```
-
 3. **View Test Results**
 
-   Test results will be available in the `build/reports/tests/test/index.html` file. Open this file in a browser to view a detailed test report.
+   Test results are available in `build/reports/tests/test/index.html`.
 
-### Running Tests for a Specific Class
+4. **Run Specific Tests**
 
-If you want to run tests for a specific class, use the following command:
-
-```bash
-./gradlew test --tests "com.networking.filetransfer.controller.FileControllerTest"
-```
-
-Replace `FileControllerTest` with the specific test class name.
+   ```bash
+   ./gradlew test --tests "com.networking.filetransfer.controller.FileControllerTest"
+   ```
