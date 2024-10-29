@@ -1,6 +1,6 @@
 # File Sync Frontend
 
-This project provides a React frontend interface for a file transfer application using a custom TCP-over-UDP protocol. The application allows users to send and receive files through a backend API.
+This project provides a React frontend interface for a file transfer application that supports file uploads and downloads through both a custom TCP-over-UDP protocol and AWS S3. The application allows users to send and receive files via a backend API, as well as upload and download files to and from an S3 bucket.
 
 ## Getting Started
 
@@ -54,6 +54,8 @@ This allows you to make API requests directly to `/file-transfer` without specif
 
 ## Using the App
 
+The application includes pages for sending, receiving, uploading, and downloading files.
+
 ### 1. Send File
 
 Navigate to the "Sender" page to select a file, specify the receiver's hostname, port, and byte limit, then initiate the transfer.
@@ -61,3 +63,19 @@ Navigate to the "Sender" page to select a file, specify the receiver's hostname,
 ### 2. Receive File
 
 On the "Receiver" page, enter the port, filename to save the file as, and file storage location. Click **Start Receiver** to initiate the download process.
+
+### 3. Upload to S3
+
+Go to the "Upload" page, select a file to upload, specify the S3 bucket name, and provide the file name to use in S3. Click **Upload File** to store the file in the specified S3 bucket.
+
+### 4. Download from S3
+
+Navigate to the "Download" page, enter the S3 bucket name and the file name to download. Click **Download File** to retrieve the file from S3 and save it to your local machine.
+
+## Additional Notes
+
+- The application uses **styled-components** for styling each component.
+- Ensure the backend server is running locally on port 8080, or update the proxy configuration if running on a different port.
+- The frontend communicates with the backend API endpoints located under `/file-transfer`.
+
+For backend details, see the [backend README](../backend/README.md).
