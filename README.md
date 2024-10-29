@@ -41,15 +41,20 @@ file-sync/
 │   │   ├── App.js                     # Main React component
 │   │   └── components/                # UI components for specific pages and functionalities
 │   │       ├── SenderPage.js          # Component for the sender page
-│   │       └── ReceiverPage.js        # Component for the receiver page
+│   │       ├── ReceiverPage.js        # Component for the receiver page
+│   │       ├── UploadPage.js          # Component for S3 file upload
+│   │       └── DownloadPage.js        # Component for S3 file download
 │   └── package.json                   # React project dependencies and scripts
 ├── .gitignore                         # Root .gitignore
 └── README.md                          # Project overview and setup instructions
 ```
 
-## Sender and Receiver Pages
+## Sender, Receiver, Upload, and Download Pages
 
 | ![Sender Page](https://github.com/eomielan/file-sync/blob/main/images/sender.png?raw=true) | ![Receiver Page](https://github.com/eomielan/file-sync/blob/main/images/receiver.png?raw=true) |
+| :----------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
+
+| ![Upload Page](https://github.com/eomielan/file-sync/blob/main/images/upload.png?raw=true) | ![Download Page](https://github.com/eomielan/file-sync/blob/main/images/download.png?raw=true) |
 | :----------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
 
 ## Getting Started
@@ -149,6 +154,8 @@ For detailed frontend setup and usage, see the [frontend README](frontend/README
 
 1. **Sender**: Access the "Sender" page in the React app, where you can specify the file, receiver hostname, port, and byte transfer limit.
 2. **Receiver**: Access the "Receiver" page to enter the port, desired filename, and file storage location, then start the receiver process.
+3. **Upload to S3**: Navigate to the "Upload" page, select a file, enter the bucket name and desired file name, then upload it to S3.
+4. **Download from S3**: Access the "Download" page to specify the bucket name and file name, and download the file from S3.
 
 ## Additional Resources
 
