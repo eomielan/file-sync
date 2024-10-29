@@ -1,7 +1,9 @@
 package com.networking.filetransfer.controller;
 
 import com.networking.filetransfer.service.FileTransferService;
+import com.networking.filetransfer.service.S3FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -20,8 +22,11 @@ public class FileController {
     @Autowired
     private FileTransferService fileTransferService;
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(
+    @Autowired
+    private S3FileStorageService s3FileStorageService;
+
+    @PostMapping("/send")
+    public ResponseEntity<String> sendFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("receiverHostname") String receiverHostname,
             @RequestParam("receiverPort") int receiverPort,
@@ -35,8 +40,22 @@ public class FileController {
         }
     }
 
-    @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("bucketName") String bucketName,
+            @RequestParam("fileName") String fileName) {
+
+        try {
+            String eTag = s3FileStorageService.uploadFile(bucketName, fileName, file);
+            return ResponseEntity.ok("File uploaded successfully. ETag: " + eTag);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("File upload failed: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/receive")
+    public ResponseEntity<Resource> receiveFile(
             @RequestParam("filename") String filename,
             @RequestParam("port") int port,
             @RequestHeader("fileStorageLocation") String fileStorageLocation) {
@@ -56,5 +75,13 @@ public class FileController {
         } catch (IOException | InterruptedException ex) {
             return ResponseEntity.internalServerError().body(null);
         }
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity<InputStreamResource> downloadFile(
+            @RequestParam("bucketName") String bucketName,
+            @RequestParam("fileName") String fileName) {
+
+        return s3FileStorageService.downloadFile(bucketName, fileName);
     }
 }
