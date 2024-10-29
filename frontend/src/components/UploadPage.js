@@ -26,14 +26,14 @@ const Input = styled.input`
   border-radius: 6px;
   font-size: 1em;
   &:focus {
-    border-color: #28a745;
+    border-color: #007bff;
   }
 `;
 
 const Button = styled.button`
   width: 100%;
   padding: 12px;
-  background-color: #28a745;
+  background-color: #007bff;
   color: white;
   font-size: 1.1em;
   font-weight: bold;
